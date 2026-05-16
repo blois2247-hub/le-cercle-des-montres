@@ -39,6 +39,14 @@
         .mobile-menu.open{opacity:1;pointer-events:all;}
         .mobile-menu a{font-family:'Playfair Display',serif;font-size:2rem;color:var(--white);transition:color 0.3s;}.mobile-menu a:hover{color:var(--gold);}
         .mobile-close{position:absolute;top:1.8rem;right:2rem;font-size:1.5rem;cursor:pointer;color:var(--light);}
+        .cart-icon-btn{position:relative;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);color:var(--light);transition:var(--transition);flex-shrink:0;}
+        .cart-icon-btn:hover{border-color:var(--gold);color:var(--gold);}
+        .cart-badge{position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:var(--gold);color:var(--black);font-size:0.6rem;font-weight:700;border-radius:50%;display:none;align-items:center;justify-content:center;}
+        .toast{position:fixed;bottom:2rem;right:2rem;background:var(--dark);border:1px solid var(--gold);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;z-index:2000;transform:translateY(100px);opacity:0;transition:transform 0.4s ease,opacity 0.4s ease;max-width:360px;}
+        .toast.show{transform:translateY(0);opacity:1;}
+        .toast-icon{color:var(--gold);flex-shrink:0;}
+        .toast-text{font-size:0.78rem;color:var(--light);}
+        .toast-text strong{color:var(--white);display:block;font-weight:500;}
         .breadcrumb{padding:7rem 0 0;}
         .breadcrumb-inner{display:flex;align-items:center;gap:0.7rem;font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;}
         .breadcrumb-inner a{transition:color 0.3s;}.breadcrumb-inner a:hover{color:var(--gold);}
@@ -110,6 +118,10 @@
             <a href="index.html" class="logo"><div class="logo-mark"><span>LCM</span></div><div class="logo-text"><span class="logo-name">Le Cercle des Montres</span><span class="logo-sub">Horlogerie de Prestige</span></div></a>
             <ul class="nav-links"><li><a href="index.html#collections" class="nav-link">Collections</a></li><li><a href="index.html#montres" class="nav-link">Montres</a></li><li><a href="index.html#expertise" class="nav-link">Notre expertise</a></li><li><a href="index.html#contact" class="nav-link">Contact</a></li></ul>
             <a href="index.html#montres" class="btn btn-gold" style="font-size:0.65rem;letter-spacing:0.15em;padding:0.7rem 1.6rem;">Boutique</a>
+                <a href="panier.html" class="cart-icon-btn" title="Panier">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M1.5 1.5H3L4.5 10.5H13.5L15 4.5H4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="13.5" r="1" fill="currentColor"/><circle cx="12" cy="13.5" r="1" fill="currentColor"/></svg>
+                    <span class="cart-badge">0</span>
+                </a>
             <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
         </div></div>
     </nav>
@@ -246,11 +258,11 @@
                     <div class="price-note">Prix TTC · Livraison assurée incluse · Garantie 12 mois</div>
                 </div>
                 <div class="product-actions reveal reveal-delay-3">
-                    <a href="index.html#contact" class="btn btn-gold btn-full">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 4.5h12a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1-1.5 1.5H3A1.5 1.5 0 0 1 1.5 12V6A1.5 1.5 0 0 1 3 4.5z" stroke="currentColor" stroke-width="1.2"/><path d="M1.5 6l7.5 4.5L16.5 6" stroke="currentColor" stroke-width="1.2"/></svg>
-                        Demander cette montre
-                    </a>
-                    <a href="index.html#contact" class="btn btn-outline btn-full">Poser une question</a>
+                    <button class="btn btn-gold btn-full" id="addToCartBtn" onclick="addToCart()">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M1.5 1.5H3L4.5 10.5H13.5L15 4.5H4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="13.5" r="1" fill="currentColor"/><circle cx="12" cy="13.5" r="1" fill="currentColor"/></svg>
+                        Ajouter au panier
+                    </button>
+                    <a href="index.html#contact" class="btn btn-outline btn-full">Demander / Poser une question</a>
                 </div>
                 <div class="product-badges reveal">
                     <div class="badge"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Authenticité certifiée</div>
@@ -353,6 +365,33 @@
         document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
         window.addEventListener('load',()=>document.querySelectorAll('.product-visual .reveal,.product-info .reveal').forEach((el,i)=>setTimeout(()=>el.classList.add('visible'),150+i*100)));
         document.querySelectorAll('.thumb').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active'));this.classList.add('active');}));
+
+        const PRODUCT = {id:'ap-royal-oak-15500st',brand:'Audemars Piguet',name:'Royal Oak 15500ST',ref:'Réf. 15500ST · Acier · 2022',price:42000,page:'ap-royal-oak.html'};
+        function addToCart() {
+            const result = Cart.add(PRODUCT);
+            const btn = document.getElementById('addToCartBtn');
+            if (result.added) {
+                btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 9L8 11.5L12.5 6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Ajouté au panier';
+                btn.style.background = '#3a8a5a';
+                showToast('Ajouté au panier', PRODUCT.brand + ' · ' + PRODUCT.name);
+            } else {
+                btn.textContent = '→ Voir le panier';
+                btn.onclick = () => window.location.href = 'panier.html';
+                showToast('Déjà dans le panier', 'Consultez votre panier pour finaliser.');
+            }
+        }
+        function showToast(title, msg) {
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMsg').textContent = msg;
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3500);
+        }
     </script>
+    <div class="toast" id="toast">
+        <div class="toast-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 10L9 12.5L13.5 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="toast-text"><strong id="toastTitle"></strong><span id="toastMsg"></span></div>
+    </div>
+    <script src="cart.js"></script>
 </body>
 </html>
