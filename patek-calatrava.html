@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patek Philippe Calatrava 5196P — Le Cercle des Montres</title>
+    <meta name="description" content="Patek Philippe Calatrava réf. 5196P, platine 37mm, 2021. Certifiée et garantie 12 mois. 28 900€.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root { --black:#080808;--dark:#111111;--card:#161616;--border:#2a2a2a;--muted:#6b6b6b;--light:#c8c8c8;--white:#f5f5f0;--gold:#c9a84c;--gold-light:#e2c97e;--transition:0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        html{scroll-behavior:smooth;}
+        body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;}
+        a{text-decoration:none;color:inherit;}ul{list-style:none;}
+        .container{width:100%;max-width:1280px;margin:0 auto;padding:0 2rem;}
+        .btn{display:inline-flex;align-items:center;gap:0.6rem;padding:0.9rem 2.2rem;font-family:'Inter',sans-serif;font-size:0.7rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:var(--transition);border:none;}
+        .btn-gold{background:var(--gold);color:var(--black);}.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
+        .btn-outline{background:transparent;color:var(--white);border:1px solid rgba(201,168,76,0.4);}.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+        .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}.reveal.visible{opacity:1;transform:translateY(0);}
+        .reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}
+        .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.6rem 0;transition:padding 0.4s,background 0.4s,border-color 0.4s;border-bottom:1px solid transparent;}
+        .nav.scrolled{background:rgba(8,8,8,0.95);backdrop-filter:blur(20px);padding:1rem 0;border-bottom-color:var(--border);}
+        .nav-inner{display:flex;align-items:center;justify-content:space-between;}
+        .logo{display:flex;align-items:center;gap:0.8rem;}
+        .logo-mark{width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+        .logo-mark span{font-family:'Playfair Display',serif;font-size:0.85rem;font-weight:600;color:var(--gold);}
+        .logo-text{display:flex;flex-direction:column;}
+        .logo-name{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:500;color:var(--white);letter-spacing:0.08em;line-height:1.2;}
+        .logo-sub{font-size:0.55rem;font-weight:400;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);}
+        .nav-links{display:flex;align-items:center;gap:2.5rem;}
+        .nav-link{font-size:0.7rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--light);position:relative;transition:color 0.3s;}
+        .nav-link::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s;}
+        .nav-link:hover{color:var(--white);}.nav-link:hover::after{width:100%;}
+        .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px;}
+        .hamburger span{display:block;width:24px;height:1px;background:var(--white);}
+        .mobile-menu{display:none;position:fixed;inset:0;background:var(--black);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;opacity:0;pointer-events:none;transition:opacity 0.4s;}
+        .mobile-menu.open{opacity:1;pointer-events:all;}
+        .mobile-menu a{font-family:'Playfair Display',serif;font-size:2rem;color:var(--white);transition:color 0.3s;}.mobile-menu a:hover{color:var(--gold);}
+        .mobile-close{position:absolute;top:1.8rem;right:2rem;font-size:1.5rem;cursor:pointer;color:var(--light);}
+        .breadcrumb{padding:7rem 0 0;}
+        .breadcrumb-inner{display:flex;align-items:center;gap:0.7rem;font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;}
+        .breadcrumb-inner a{transition:color 0.3s;}.breadcrumb-inner a:hover{color:var(--gold);}
+        .breadcrumb-sep{color:var(--border);}.breadcrumb-current{color:var(--light);}
+        .product-hero{padding:2rem 0 6rem;}
+        .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;}
+        .product-visual{position:sticky;top:7rem;}
+        .product-main-image{background:var(--dark);border:1px solid var(--border);aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:1rem;}
+        .product-main-image::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,0.05) 0%,transparent 70%);}
+        .product-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;}
+        .thumb{background:var(--dark);border:1px solid var(--border);aspect-ratio:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.3s;}
+        .thumb:hover,.thumb.active{border-color:var(--gold);}
+        .product-brand-tag{font-size:0.6rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;display:block;}
+        .product-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;color:var(--white);line-height:1.2;margin-bottom:0.5rem;}
+        .product-ref-tag{font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;margin-bottom:1.8rem;}
+        .product-rating{display:flex;align-items:center;gap:0.5rem;margin-bottom:2rem;}
+        .stars{display:flex;gap:3px;}.star{color:var(--gold);font-size:0.75rem;}.rating-count{font-size:0.72rem;color:var(--muted);}
+        .price-block{padding:1.8rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:2rem;}
+        .price-main{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:400;color:var(--white);}
+        .price-note{font-size:0.72rem;color:var(--muted);margin-top:0.3rem;}
+        .product-actions{display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;}
+        .btn-full{width:100%;justify-content:center;padding:1rem;font-size:0.72rem;}
+        .product-badges{display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:2rem;}
+        .badge{display:flex;align-items:center;gap:0.5rem;font-size:0.65rem;color:var(--muted);}.badge svg{color:var(--gold);flex-shrink:0;}
+        .product-desc{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--light);line-height:1.85;}
+        .section-label{font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1.2rem;}
+        .specs-section{padding:5rem 0;border-top:1px solid var(--border);}
+        .specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;}
+        .specs-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:400;color:var(--white);margin-bottom:2rem;}
+        .specs-table{width:100%;}
+        .spec-row{display:flex;justify-content:space-between;align-items:baseline;padding:0.9rem 0;border-bottom:1px solid var(--border);gap:1rem;}
+        .spec-row:last-child{border-bottom:none;}
+        .spec-key{font-size:0.72rem;color:var(--muted);letter-spacing:0.08em;flex-shrink:0;}
+        .spec-val{font-size:0.82rem;color:var(--white);text-align:right;}
+        .included-list{display:flex;flex-direction:column;gap:0.8rem;}
+        .included-item{display:flex;align-items:center;gap:0.8rem;font-size:0.82rem;color:var(--light);}
+        .included-item svg{color:var(--gold);flex-shrink:0;}
+        .guarantee-section{padding:4rem 0;background:var(--dark);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+        .guarantee-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+        .guarantee-card{padding:2rem;border:1px solid var(--border);text-align:center;transition:var(--transition);}
+        .guarantee-card:hover{border-color:rgba(201,168,76,0.3);}
+        .guarantee-icon{width:44px;height:44px;margin:0 auto 1rem;color:var(--gold);}
+        .guarantee-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:var(--white);margin-bottom:0.5rem;}
+        .guarantee-text{font-size:0.78rem;color:var(--muted);line-height:1.6;}
+        .related-section{padding:6rem 0;}
+        .related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+        .product-card{background:var(--card);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:var(--transition);}
+        .product-card:hover{border-color:rgba(201,168,76,0.3);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+        .product-image{aspect-ratio:4/3;background:var(--dark);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);}
+        .product-info-card{padding:1.5rem;}
+        .product-brand-c{font-size:0.6rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+        .product-name-c{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:400;color:var(--white);margin-bottom:0.3rem;}
+        .product-footer-c{display:flex;align-items:center;justify-content:space-between;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);}
+        .product-price-c{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white);}
+        .footer{background:var(--black);padding:4rem 0 2rem;border-top:1px solid var(--border);}
+        .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid var(--border);}
+        .footer-brand p{font-size:0.82rem;color:var(--muted);line-height:1.7;margin-top:1rem;max-width:260px;}
+        .footer-col-title{font-size:0.65rem;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--white);margin-bottom:1.2rem;}
+        .footer-links li{margin-bottom:0.7rem;}.footer-links a{font-size:0.8rem;color:var(--muted);transition:color 0.3s;}.footer-links a:hover{color:var(--gold);}
+        .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+        .footer-copy{font-size:0.72rem;color:var(--muted);}
+        .footer-legal{display:flex;gap:2rem;}.footer-legal a{font-size:0.72rem;color:var(--muted);transition:color 0.3s;}.footer-legal a:hover{color:var(--gold);}
+        @media(max-width:1024px){.product-grid{grid-template-columns:1fr;gap:3rem;}.product-visual{position:static;}.specs-grid{grid-template-columns:1fr;gap:2rem;}.footer-top{grid-template-columns:1fr 1fr;gap:2rem;}}
+        @media(max-width:768px){.nav-links,.nav .btn{display:none;}.hamburger{display:flex;}.mobile-menu{display:flex;}.guarantee-grid{grid-template-columns:1fr;}.related-grid{grid-template-columns:1fr;}.footer-top{grid-template-columns:1fr;gap:2rem;}}
+    </style>
+</head>
+<body>
+    <nav class="nav" id="nav">
+        <div class="container"><div class="nav-inner">
+            <a href="index.html" class="logo"><div class="logo-mark"><span>LCM</span></div><div class="logo-text"><span class="logo-name">Le Cercle des Montres</span><span class="logo-sub">Horlogerie de Prestige</span></div></a>
+            <ul class="nav-links"><li><a href="index.html#collections" class="nav-link">Collections</a></li><li><a href="index.html#montres" class="nav-link">Montres</a></li><li><a href="index.html#expertise" class="nav-link">Notre expertise</a></li><li><a href="index.html#contact" class="nav-link">Contact</a></li></ul>
+            <a href="index.html#montres" class="btn btn-gold" style="font-size:0.65rem;letter-spacing:0.15em;padding:0.7rem 1.6rem;">Boutique</a>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div></div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu"><span class="mobile-close" id="mobileClose">✕</span><a href="index.html#collections" onclick="closeMobile()">Collections</a><a href="index.html#montres" onclick="closeMobile()">Montres</a><a href="index.html#expertise" onclick="closeMobile()">Expertise</a><a href="index.html#contact" onclick="closeMobile()">Contact</a></div>
+
+    <div class="breadcrumb"><div class="container"><div class="breadcrumb-inner">
+        <a href="index.html">Accueil</a><span class="breadcrumb-sep">›</span>
+        <a href="index.html#montres">Boutique</a><span class="breadcrumb-sep">›</span>
+        <a href="index.html#montres">Patek Philippe</a><span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">Calatrava 5196P</span>
+    </div></div></div>
+
+    <section class="product-hero">
+        <div class="container"><div class="product-grid">
+
+            <div class="product-visual reveal">
+                <div class="product-main-image">
+                    <svg viewBox="0 0 360 460" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:320px;">
+                        <!-- Strap top — alligator texture -->
+                        <rect x="138" y="0" width="84" height="105" rx="12" fill="#1a1a1a" stroke="#2a2a2a"/>
+                        <rect x="148" y="8" width="64" height="90" rx="8" fill="#141414"/>
+                        <!-- Alligator grain lines -->
+                        <line x1="152" y1="20" x2="208" y2="20" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="32" x2="208" y2="32" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="44" x2="208" y2="44" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="56" x2="208" y2="56" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="68" x2="208" y2="68" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="80" x2="208" y2="80" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="92" x2="208" y2="92" stroke="#1e1e1e" stroke-width="2"/>
+                        <!-- Calatrava case — round, slim, elegant -->
+                        <ellipse cx="180" cy="215" rx="120" ry="118" fill="#1e1e1e" stroke="#c9a84c" stroke-width="1.5"/>
+                        <ellipse cx="180" cy="215" rx="112" ry="110" fill="#181818" stroke="#333" stroke-width="0.5"/>
+                        <!-- Crown -->
+                        <rect x="300" y="207" width="20" height="16" rx="5" fill="#1c1c1c" stroke="#c9a84c" stroke-width="0.8"/>
+                        <rect x="304" y="211" width="12" height="8" rx="2" fill="#161616"/>
+                        <!-- Dial -->
+                        <ellipse cx="180" cy="215" rx="95" ry="93" fill="#f0ede8" stroke="#c9a84c" stroke-width="0.5"/>
+                        <!-- Guilloché soleil on dial -->
+                        <ellipse cx="180" cy="215" rx="95" ry="93" fill="url(#guilloché)" opacity="0.5"/>
+                        <defs>
+                            <radialGradient id="guilloché" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#d4cfc8"/>
+                                <stop offset="100%" stop-color="#f0ede8"/>
+                            </radialGradient>
+                        </defs>
+                        <!-- Hour indices — feuilles / dauphine style -->
+                        <rect x="178" y="126" width="4" height="14" rx="2" fill="#1a1a1a"/>
+                        <rect x="178" y="289" width="4" height="14" rx="2" fill="#1a1a1a"/>
+                        <rect x="91" y="213" width="14" height="4" rx="2" fill="#1a1a1a"/>
+                        <rect x="255" y="213" width="14" height="4" rx="2" fill="#1a1a1a"/>
+                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(30 180 215)"/>
+                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(60 180 215)"/>
+                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(120 180 215)"/>
+                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(150 180 215)"/>
+                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(210 180 215)"/>
+                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(240 180 215)"/>
+                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(300 180 215)"/>
+                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(330 180 215)"/>
+                        <!-- Small seconds subdial at 6h -->
+                        <ellipse cx="180" cy="278" rx="20" ry="19" fill="#e8e5e0" stroke="#ccc" stroke-width="0.5"/>
+                        <line x1="180" y1="278" x2="186" y2="265" stroke="#1a1a1a" stroke-width="0.8"/>
+                        <circle cx="180" cy="278" r="2" fill="#1a1a1a"/>
+                        <!-- Dauphine hands -->
+                        <path d="M180 215 L172 162 L180 168 L188 162 Z" fill="#1a1a1a" transform="rotate(-45 180 215)"/>
+                        <path d="M180 215 L177 176 L180 180 L183 176 Z" fill="#c9a84c" transform="rotate(110 180 215)"/>
+                        <!-- Center -->
+                        <circle cx="180" cy="215" r="4" fill="#1a1a1a"/>
+                        <!-- Patek text -->
+                        <text x="180" y="205" text-anchor="middle" fill="#555" font-size="7" font-family="serif" letter-spacing="2">PATEK PHILIPPE</text>
+                        <text x="180" y="216" text-anchor="middle" fill="#888" font-size="5.5" font-family="serif" letter-spacing="1">GENÈVE</text>
+                        <text x="180" y="236" text-anchor="middle" fill="#888" font-size="5" font-family="serif" letter-spacing="1">CALATRAVA</text>
+                        <!-- Strap bottom — alligator -->
+                        <rect x="138" y="325" width="84" height="135" rx="12" fill="#1a1a1a" stroke="#2a2a2a"/>
+                        <rect x="148" y="333" width="64" height="118" rx="8" fill="#141414"/>
+                        <line x1="152" y1="345" x2="208" y2="345" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="357" x2="208" y2="357" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="369" x2="208" y2="369" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="381" x2="208" y2="381" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="393" x2="208" y2="393" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="405" x2="208" y2="405" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="417" x2="208" y2="417" stroke="#1e1e1e" stroke-width="2"/>
+                        <line x1="152" y1="432" x2="208" y2="432" stroke="#1e1e1e" stroke-width="2"/>
+                        <!-- Buckle -->
+                        <rect x="155" y="445" width="50" height="15" rx="4" fill="#1e1e1e" stroke="#c9a84c" stroke-width="0.7"/>
+                    </svg>
+                </div>
+                <div class="product-thumbs">
+                    <div class="thumb active">
+                        <svg viewBox="0 0 60 60" fill="none" style="width:36px;height:36px;"><ellipse cx="30" cy="30" rx="22" ry="22" stroke="#c9a84c" stroke-width="1"/><ellipse cx="30" cy="30" rx="16" ry="16" fill="#f0ede8"/><rect x="29" y="12" width="2" height="7" rx="1" fill="#1a1a1a"/><rect x="29" y="41" width="2" height="7" rx="1" fill="#1a1a1a"/></svg>
+                    </div>
+                    <div class="thumb">
+                        <svg viewBox="0 0 60 60" fill="none" style="width:36px;height:36px;"><ellipse cx="30" cy="30" rx="18" ry="18" fill="#1c1c1c" stroke="#2a2a2a"/><text x="30" y="35" text-anchor="middle" fill="#c9a84c" font-size="8" font-family="serif">PP</text></svg>
+                    </div>
+                    <div class="thumb">
+                        <svg viewBox="0 0 60 60" fill="none" style="width:36px;height:36px;"><rect x="20" y="8" width="20" height="44" rx="4" fill="#1a1a1a" stroke="#2a2a2a"/><rect x="23" y="12" width="14" height="36" rx="2" fill="#141414"/><line x1="23" y1="20" x2="37" y2="20" stroke="#1e1e1e" stroke-width="1.5"/><line x1="23" y1="28" x2="37" y2="28" stroke="#1e1e1e" stroke-width="1.5"/></svg>
+                    </div>
+                    <div class="thumb">
+                        <svg viewBox="0 0 60 60" fill="none" style="width:36px;height:36px;"><circle cx="30" cy="30" r="18" fill="#0d0d0d" stroke="#2a2a2a"/><text x="30" y="34" text-anchor="middle" fill="#c9a84c" font-size="10" font-family="serif">✓</text></svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <span class="product-brand-tag reveal">Patek Philippe</span>
+                <h1 class="product-title reveal reveal-delay-1">Calatrava<br>5196P</h1>
+                <div class="product-ref-tag reveal reveal-delay-1">Référence 5196P · Platine · 2021</div>
+                <div class="product-rating reveal reveal-delay-2">
+                    <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+                    <span class="rating-count">5.0 · Pièce rare certifiée</span>
+                </div>
+                <div class="price-block reveal reveal-delay-2">
+                    <div class="price-main">28 900 €</div>
+                    <div class="price-note">Prix TTC · Livraison assurée incluse · Garantie 12 mois</div>
+                </div>
+                <div class="product-actions reveal reveal-delay-3">
+                    <a href="index.html#contact" class="btn btn-gold btn-full">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 4.5h12a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1-1.5 1.5H3A1.5 1.5 0 0 1 1.5 12V6A1.5 1.5 0 0 1 3 4.5z" stroke="currentColor" stroke-width="1.2"/><path d="M1.5 6l7.5 4.5L16.5 6" stroke="currentColor" stroke-width="1.2"/></svg>
+                        Demander cette montre
+                    </a>
+                    <a href="index.html#contact" class="btn btn-outline btn-full">Poser une question</a>
+                </div>
+                <div class="product-badges reveal">
+                    <div class="badge"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Authenticité certifiée</div>
+                    <div class="badge"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L9.8 6H14.5L10.5 8.8L12 13.5L8 10.5L4 13.5L5.5 8.8L1.5 6H6.2L8 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>Pièce rare — Platine</div>
+                    <div class="badge"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 4V3a3 3 0 1 1 6 0v1" stroke="currentColor" stroke-width="1.2"/></svg>Paiement sécurisé</div>
+                    <div class="badge"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 6c0 4-5 8-5 8S3 10 3 6a5 5 0 0 1 10 0z" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="6" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg>Livraison Europe 24–72h</div>
+                </div>
+                <div class="product-desc reveal">
+                    <p>La Calatrava 5196P incarne la quintessence de l'horlogerie classique selon Patek Philippe. Boîtier en platine d'un diamètre de 37 mm, sobriété absolue, cadran argenté guilloché soleil — cette pièce est le symbole d'un luxe discret et intemporel.</p>
+                    <br>
+                    <p>Animée par le calibre 215 PS à remontage manuel — l'un des plus fins au monde — elle témoigne d'un savoir-faire d'exception. Accompagnée de l'intégralité de ses documents d'origine, y compris l'extrait du Registre Patek Philippe, elle constitue un investissement de premier ordre.</p>
+                </div>
+            </div>
+        </div></div>
+    </section>
+
+    <section class="specs-section">
+        <div class="container"><div class="specs-grid">
+            <div class="reveal">
+                <span class="section-label">Caractéristiques techniques</span>
+                <h2 class="specs-title">Fiche technique</h2>
+                <div class="specs-table">
+                    <div class="spec-row"><span class="spec-key">Référence</span><span class="spec-val">5196P-001</span></div>
+                    <div class="spec-row"><span class="spec-key">Marque</span><span class="spec-val">Patek Philippe</span></div>
+                    <div class="spec-row"><span class="spec-key">Modèle</span><span class="spec-val">Calatrava</span></div>
+                    <div class="spec-row"><span class="spec-key">Année</span><span class="spec-val">2021</span></div>
+                    <div class="spec-row"><span class="spec-key">Boîtier</span><span class="spec-val">Platine 950, 37 mm</span></div>
+                    <div class="spec-row"><span class="spec-key">Verre</span><span class="spec-val">Saphir, fond saphir</span></div>
+                    <div class="spec-row"><span class="spec-key">Cadran</span><span class="spec-val">Argenté guilloché soleil, petite seconde</span></div>
+                    <div class="spec-row"><span class="spec-key">Bracelet</span><span class="spec-val">Alligator noir, boucle ardillon platine</span></div>
+                    <div class="spec-row"><span class="spec-key">Mouvement</span><span class="spec-val">Calibre 215 PS, manuel</span></div>
+                    <div class="spec-row"><span class="spec-key">Fréquence</span><span class="spec-val">28 800 alt/h (4 Hz)</span></div>
+                    <div class="spec-row"><span class="spec-key">Réserve de marche</span><span class="spec-val">~44 heures</span></div>
+                    <div class="spec-row"><span class="spec-key">Épaisseur</span><span class="spec-val">6,7 mm</span></div>
+                    <div class="spec-row"><span class="spec-key">État</span><span class="spec-val">Très bon — porté occasionnellement</span></div>
+                </div>
+            </div>
+            <div class="reveal reveal-delay-2">
+                <span class="section-label">Ce qui est inclus</span>
+                <h2 class="specs-title">Contenu de la vente</h2>
+                <div class="included-list">
+                    <div class="included-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 9L8 11L12 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Boîte d'origine Patek Philippe</div>
+                    <div class="included-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 9L8 11L12 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Extrait du Registre Patek Philippe</div>
+                    <div class="included-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 9L8 11L12 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Livrets et documents d'origine</div>
+                    <div class="included-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 9L8 11L12 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Certificat d'authenticité Le Cercle des Montres</div>
+                    <div class="included-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 9L8 11L12 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Garantie 12 mois mouvement</div>
+                    <div class="included-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 9L8 11L12 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Emballage de prestige</div>
+                    <div class="included-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 9L8 11L12 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Livraison assurée toute l'Europe</div>
+                    <div class="included-item"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.2"/><path d="M6 9L8 11L12 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Rapport d'expertise détaillé</div>
+                </div>
+            </div>
+        </div></div>
+    </section>
+
+    <section class="guarantee-section">
+        <div class="container">
+            <div style="text-align:center;margin-bottom:3rem;"><span class="section-label">Nos engagements</span><h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;color:var(--white);">Achetez en toute confiance</h2></div>
+            <div class="guarantee-grid">
+                <div class="guarantee-card reveal"><div class="guarantee-icon"><svg viewBox="0 0 44 44" fill="none"><path d="M22 4C12 4 6 10 6 18C6 30 22 40 22 40C22 40 38 30 38 18C38 10 32 4 22 4Z" stroke="currentColor" stroke-width="1.5"/><path d="M16 18L20 22L28 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="guarantee-title">Authenticité 100%</div><p class="guarantee-text">Chaque pièce est expertisée par nos horlogers certifiés. Remboursement intégral si le moindre doute subsiste.</p></div>
+                <div class="guarantee-card reveal reveal-delay-1"><div class="guarantee-icon"><svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="17" stroke="currentColor" stroke-width="1.5"/><path d="M22 12V22L28 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="guarantee-title">Garantie 12 mois</div><p class="guarantee-text">Le mouvement est couvert 12 mois contre tout défaut. Prise en charge complète à nos frais.</p></div>
+                <div class="guarantee-card reveal reveal-delay-2"><div class="guarantee-icon"><svg viewBox="0 0 44 44" fill="none"><rect x="6" y="12" width="32" height="22" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M6 18H38" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="24" width="10" height="4" rx="1" fill="currentColor" opacity="0.4"/></svg></div><div class="guarantee-title">Paiement sécurisé</div><p class="guarantee-text">Transactions chiffrées SSL. Carte bancaire, virement ou PayPal. Protection acheteur sur chaque vente.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-section">
+        <div class="container">
+            <div style="margin-bottom:3rem;"><span class="section-label">Vous aimerez aussi</span><h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;color:var(--white);">Autres pièces disponibles</h2></div>
+            <div class="related-grid">
+                <a href="rolex-submariner.html" class="product-card reveal">
+                    <div class="product-image"><svg viewBox="0 0 200 200" fill="none" style="width:130px;height:130px;"><rect x="80" y="0" width="40" height="45" rx="8" fill="#1e1e1e" stroke="#333"/><rect x="80" y="155" width="40" height="45" rx="8" fill="#1e1e1e" stroke="#333"/><rect x="35" y="40" width="130" height="120" rx="22" fill="#1e1e1e" stroke="#c9a84c" stroke-width="1.5"/><circle cx="100" cy="100" r="50" fill="#0d0d0d" stroke="#c9a84c"/><circle cx="100" cy="100" r="43" fill="#080808"/><circle cx="100" cy="100" r="50" fill="none" stroke="#c9a84c" stroke-width="3" stroke-dasharray="4 3"/><rect x="99" y="57" width="2" height="12" rx="1" fill="#c9a84c"/><rect x="99" y="131" width="2" height="12" rx="1" fill="#c9a84c"/><rect x="63" y="99" width="12" height="2" rx="1" fill="#c9a84c"/><rect x="125" y="99" width="12" height="2" rx="1" fill="#c9a84c"/><rect x="99" y="62" width="2.5" height="44" rx="1.25" fill="white" transform-origin="100 100" transform="rotate(-25 100 100)"/><rect x="99.5" y="64" width="2" height="52" rx="1" fill="#c9a84c" transform-origin="100 100" transform="rotate(140 100 100)"/><circle cx="100" cy="100" r="4" fill="#c9a84c"/></svg></div>
+                    <div class="product-info-card"><div class="product-brand-c">Rolex</div><div class="product-name-c">Submariner Date 126610LN</div><div class="product-footer-c"><div class="product-price-c">13 500 €</div><span class="btn btn-outline" style="font-size:0.6rem;padding:0.5rem 1rem;">Voir →</span></div></div>
+                </a>
+                <a href="ap-royal-oak.html" class="product-card reveal reveal-delay-1">
+                    <div class="product-image"><svg viewBox="0 0 200 200" fill="none" style="width:130px;height:130px;"><rect x="85" y="0" width="30" height="42" rx="6" fill="#1e1e1e" stroke="#333"/><rect x="85" y="158" width="30" height="42" rx="6" fill="#1e1e1e" stroke="#333"/><polygon points="100,38 140,48 162,100 140,152 100,162 60,152 38,100 60,48" fill="#1e1e1e" stroke="#c9a84c" stroke-width="1.5"/><circle cx="100" cy="100" r="36" fill="#0a0a0a" stroke="#c9a84c" stroke-width="0.5"/><rect x="99" y="67" width="2" height="9" rx="1" fill="#c9a84c"/><rect x="99" y="124" width="2" height="9" rx="1" fill="#c9a84c"/><rect x="67" y="99" width="9" height="2" rx="1" fill="#c9a84c"/><rect x="124" y="99" width="9" height="2" rx="1" fill="#c9a84c"/><rect x="99" y="74" width="2.5" height="29" rx="1.25" fill="white" transform-origin="100 100" transform="rotate(-40 100 100)"/><rect x="99.5" y="76" width="2" height="34" rx="1" fill="#c9a84c" transform-origin="100 100" transform="rotate(130 100 100)"/><circle cx="100" cy="100" r="3.5" fill="#c9a84c"/></svg></div>
+                    <div class="product-info-card"><div class="product-brand-c">Audemars Piguet</div><div class="product-name-c">Royal Oak 15500ST</div><div class="product-footer-c"><div class="product-price-c">42 000 €</div><span class="btn btn-outline" style="font-size:0.6rem;padding:0.5rem 1rem;">Voir →</span></div></div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer"><div class="container">
+        <div class="footer-top">
+            <div class="footer-brand"><a href="index.html" class="logo"><div class="logo-mark"><span>LCM</span></div><div class="logo-text"><span class="logo-name">Le Cercle des Montres</span><span class="logo-sub">Horlogerie de Prestige</span></div></a><p>Spécialiste de l'acquisition et de la revente de montres de luxe en Europe.</p></div>
+            <div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a href="index.html#collections">Collections</a></li><li><a href="index.html#montres">Montres</a></li><li><a href="index.html#expertise">Expertise</a></li><li><a href="index.html#contact">Contact</a></li></ul></div>
+            <div><div class="footer-col-title">Services</div><ul class="footer-links"><li><a href="#">Vendre une montre</a></li><li><a href="#">Expertise gratuite</a></li><li><a href="#">Livraison Europe</a></li><li><a href="#">SAV</a></li></ul></div>
+            <div><div class="footer-col-title">Contact</div><ul class="footer-links"><li><a href="mailto:contact@lecercledesmontres.com">contact@lecercledesmontres.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">WhatsApp</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p class="footer-copy">© 2025 Le Cercle des Montres. Tous droits réservés.</p><div class="footer-legal"><a href="#">Mentions légales</a><a href="#">CGV</a></div></div>
+    </div></footer>
+
+    <script>
+        const nav=document.getElementById('nav');
+        window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+        const hamburger=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobileMenu');
+        hamburger.addEventListener('click',()=>{mobileMenu.style.display='flex';requestAnimationFrame(()=>mobileMenu.classList.add('open'));});
+        function closeMobile(){mobileMenu.classList.remove('open');setTimeout(()=>mobileMenu.style.display='none',400);}
+        document.getElementById('mobileClose').addEventListener('click',closeMobile);
+        const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}),{threshold:0.12});
+        document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+        window.addEventListener('load',()=>document.querySelectorAll('.product-visual .reveal,.product-info .reveal').forEach((el,i)=>setTimeout(()=>el.classList.add('visible'),150+i*100)));
+        document.querySelectorAll('.thumb').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active'));this.classList.add('active');}));
+    </script>
+</body>
+</html>
