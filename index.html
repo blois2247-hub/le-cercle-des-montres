@@ -564,9 +564,19 @@
             border-bottom: 1px solid var(--border);
         }
         .product-image-inner {
-            width: 200px;
-            height: 200px;
+            width: 100%;
+            height: 100%;
             position: relative;
+        }
+        .product-image-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .product-card:hover .product-image-inner img {
+            transform: scale(1.05);
         }
         .product-badge {
             position: absolute;
@@ -1389,26 +1399,7 @@
                 <div class="product-card reveal">
                     <div class="product-image">
                         <div class="product-image-inner">
-                            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="80" y="0" width="40" height="45" rx="8" fill="#1e1e1e" stroke="#333"/>
-                                <rect x="80" y="155" width="40" height="45" rx="8" fill="#1e1e1e" stroke="#333"/>
-                                <rect x="35" y="40" width="130" height="120" rx="22" fill="#1e1e1e" stroke="#c9a84c" stroke-width="1.5"/>
-                                <circle cx="100" cy="100" r="50" fill="#0d0d0d" stroke="#c9a84c"/>
-                                <circle cx="100" cy="100" r="43" fill="#080808"/>
-                                <!-- Submariner fluted bezel -->
-                                <circle cx="100" cy="100" r="50" fill="none" stroke="#c9a84c" stroke-width="3" stroke-dasharray="4 3"/>
-                                <rect x="99" y="57" width="2" height="12" rx="1" fill="#c9a84c"/>
-                                <rect x="99" y="131" width="2" height="12" rx="1" fill="#c9a84c"/>
-                                <rect x="63" y="99" width="12" height="2" rx="1" fill="#c9a84c"/>
-                                <rect x="125" y="99" width="12" height="2" rx="1" fill="#c9a84c"/>
-                                <rect x="99" y="62" width="2.5" height="44" rx="1.25" fill="white" transform="rotate(-25 100 100)"/>
-                                <rect x="99.5" y="64" width="2" height="52" rx="1" fill="#c9a84c" transform="rotate(140 100 100)"/>
-                                <circle cx="100" cy="100" r="4" fill="#c9a84c"/>
-                                <circle cx="100" cy="100" r="2" fill="#080808"/>
-                                <text x="100" y="120" text-anchor="middle" fill="#4a4a4a" font-size="6" font-family="serif" letter-spacing="2">SUBMARINER</text>
-                                <!-- Crown -->
-                                <rect x="165" y="92" width="18" height="16" rx="5" fill="#1e1e1e" stroke="#c9a84c" stroke-width="0.8"/>
-                            </svg>
+                            <img src="https://images.unsplash.com/photo-1662384197911-e82189f4dc60?w=600&q=80&fit=crop&auto=format" alt="Rolex Submariner Date 126610LN">
                         </div>
                         <div class="product-badge">Disponible</div>
                         <div class="product-wishlist">
@@ -1435,28 +1426,7 @@
                 <div class="product-card reveal reveal-delay-1">
                     <div class="product-image">
                         <div class="product-image-inner">
-                            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="83" y="0" width="34" height="42" rx="7" fill="#1e1e1e" stroke="#333"/>
-                                <rect x="83" y="158" width="34" height="42" rx="7" fill="#1e1e1e" stroke="#333"/>
-                                <rect x="30" y="38" width="140" height="124" rx="35" fill="#1e1e1e" stroke="#c9a84c" stroke-width="1.5"/>
-                                <ellipse cx="100" cy="100" rx="55" ry="52" fill="#0d0d0d" stroke="#c9a84c" stroke-width="0.8"/>
-                                <ellipse cx="100" cy="100" rx="48" ry="45" fill="#080808"/>
-                                <rect x="99" y="58" width="2" height="11" rx="1" fill="#c9a84c"/>
-                                <rect x="99" y="131" width="2" height="11" rx="1" fill="#c9a84c"/>
-                                <rect x="61" y="99" width="11" height="2" rx="1" fill="#c9a84c"/>
-                                <rect x="128" y="99" width="11" height="2" rx="1" fill="#c9a84c"/>
-                                <!-- Small seconds subdial -->
-                                <circle cx="100" cy="80" r="12" fill="#0a0a0a" stroke="#2a2a2a"/>
-                                <circle cx="100" cy="80" r="2" fill="#c9a84c"/>
-                                <line x1="100" y1="80" x2="106" y2="73" stroke="#c9a84c" stroke-width="0.8"/>
-                                <!-- Main hands -->
-                                <rect x="99" y="65" width="2.5" height="40" rx="1.25" fill="white" transform="rotate(-55 100 100)"/>
-                                <rect x="99.5" y="67" width="2" height="47" rx="1" fill="#c9a84c" transform="rotate(120 100 100)"/>
-                                <circle cx="100" cy="100" r="4" fill="#c9a84c"/>
-                                <text x="100" y="122" text-anchor="middle" fill="#4a4a4a" font-size="5.5" font-family="serif" letter-spacing="1.5">CALATRAVA</text>
-                                <text x="100" y="112" text-anchor="middle" fill="#3a3a3a" font-size="4.5" font-family="serif" letter-spacing="2">PATEK PHILIPPE</text>
-                                <rect x="170" y="93" width="16" height="14" rx="4" fill="#1e1e1e" stroke="#c9a84c" stroke-width="0.7"/>
-                            </svg>
+                            <img src="https://images.unsplash.com/photo-1663564304546-38addf4a4358?w=600&q=80&fit=crop&auto=format" alt="Patek Philippe Calatrava 5196P">
                         </div>
                         <div class="product-badge">Rare</div>
                         <div class="product-wishlist">
@@ -1483,34 +1453,7 @@
                 <div class="product-card reveal reveal-delay-2">
                     <div class="product-image">
                         <div class="product-image-inner">
-                            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="85" y="0" width="30" height="42" rx="6" fill="#1e1e1e" stroke="#333"/>
-                                <rect x="85" y="158" width="30" height="42" rx="6" fill="#1e1e1e" stroke="#333"/>
-                                <!-- Royal Oak octagonal case -->
-                                <polygon points="100,38 140,48 162,100 140,152 100,162 60,152 38,100 60,48" fill="#1e1e1e" stroke="#c9a84c" stroke-width="1.5"/>
-                                <polygon points="100,47 135,56 155,100 135,144 100,153 65,144 45,100 65,56" fill="#0d0d0d" stroke="#2a2a2a"/>
-                                <!-- Tapisserie dial pattern -->
-                                <circle cx="100" cy="100" r="48" fill="#0a0a0a"/>
-                                <line x1="76" y1="75" x2="124" y2="75" stroke="#1a1a1a" stroke-width="0.5"/>
-                                <line x1="72" y1="85" x2="128" y2="85" stroke="#1a1a1a" stroke-width="0.5"/>
-                                <line x1="70" y1="95" x2="130" y2="95" stroke="#1a1a1a" stroke-width="0.5"/>
-                                <line x1="70" y1="105" x2="130" y2="105" stroke="#1a1a1a" stroke-width="0.5"/>
-                                <line x1="72" y1="115" x2="128" y2="115" stroke="#1a1a1a" stroke-width="0.5"/>
-                                <line x1="76" y1="125" x2="124" y2="125" stroke="#1a1a1a" stroke-width="0.5"/>
-                                <rect x="99" y="56" width="2" height="11" rx="1" fill="#c9a84c"/>
-                                <rect x="99" y="133" width="2" height="11" rx="1" fill="#c9a84c"/>
-                                <rect x="62" y="99" width="11" height="2" rx="1" fill="#c9a84c"/>
-                                <rect x="127" y="99" width="11" height="2" rx="1" fill="#c9a84c"/>
-                                <rect x="99" y="63" width="2.5" height="40" rx="1.25" fill="white" transform="rotate(-40 100 100)"/>
-                                <rect x="99.5" y="65" width="2" height="46" rx="1" fill="#c9a84c" transform="rotate(130 100 100)"/>
-                                <circle cx="100" cy="100" r="4" fill="#c9a84c"/>
-                                <!-- Screws -->
-                                <circle cx="64" cy="58" r="4" fill="#1a1a1a" stroke="#3a3a3a"/>
-                                <circle cx="136" cy="58" r="4" fill="#1a1a1a" stroke="#3a3a3a"/>
-                                <circle cx="64" cy="142" r="4" fill="#1a1a1a" stroke="#3a3a3a"/>
-                                <circle cx="136" cy="142" r="4" fill="#1a1a1a" stroke="#3a3a3a"/>
-                                <rect x="170" y="93" width="16" height="14" rx="4" fill="#1e1e1e" stroke="#c9a84c" stroke-width="0.7"/>
-                            </svg>
+                            <img src="https://images.unsplash.com/photo-1695921504311-a42b163ae0a3?w=600&q=80&fit=crop&auto=format" alt="Audemars Piguet Royal Oak 15500ST">
                         </div>
                         <div class="product-badge">Coup de cœur</div>
                         <div class="product-wishlist">

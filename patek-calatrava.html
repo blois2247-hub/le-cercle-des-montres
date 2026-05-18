@@ -55,9 +55,13 @@
         .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;}
         .product-visual{position:sticky;top:7rem;}
         .product-main-image{background:var(--dark);border:1px solid var(--border);aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:1rem;}
-        .product-main-image::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,0.05) 0%,transparent 70%);}
+        .product-main-image::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,0.05) 0%,transparent 70%);pointer-events:none;z-index:1;}
+        .product-main-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease;}
+        .product-main-image:hover img{transform:scale(1.03);}
         .product-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;}
-        .thumb{background:var(--dark);border:1px solid var(--border);aspect-ratio:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.3s;}
+        .thumb{background:var(--dark);border:1px solid var(--border);aspect-ratio:1;overflow:hidden;cursor:pointer;transition:border-color 0.3s;}
+        .thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:0.7;transition:opacity 0.3s;}
+        .thumb:hover img,.thumb.active img{opacity:1;}
         .thumb:hover,.thumb.active{border-color:var(--gold);}
         .product-brand-tag{font-size:0.6rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;display:block;}
         .product-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;color:var(--white);line-height:1.2;margin-bottom:0.5rem;}
@@ -140,87 +144,20 @@
 
             <div class="product-visual reveal">
                 <div class="product-main-image">
-                    <svg viewBox="0 0 360 460" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:260px;height:320px;">
-                        <!-- Strap top — alligator texture -->
-                        <rect x="138" y="0" width="84" height="105" rx="12" fill="#1a1a1a" stroke="#2a2a2a"/>
-                        <rect x="148" y="8" width="64" height="90" rx="8" fill="#141414"/>
-                        <!-- Alligator grain lines -->
-                        <line x1="152" y1="20" x2="208" y2="20" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="32" x2="208" y2="32" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="44" x2="208" y2="44" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="56" x2="208" y2="56" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="68" x2="208" y2="68" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="80" x2="208" y2="80" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="92" x2="208" y2="92" stroke="#1e1e1e" stroke-width="2"/>
-                        <!-- Calatrava case — round, slim, elegant -->
-                        <ellipse cx="180" cy="215" rx="120" ry="118" fill="#1e1e1e" stroke="#c9a84c" stroke-width="1.5"/>
-                        <ellipse cx="180" cy="215" rx="112" ry="110" fill="#181818" stroke="#333" stroke-width="0.5"/>
-                        <!-- Crown -->
-                        <rect x="300" y="207" width="20" height="16" rx="5" fill="#1c1c1c" stroke="#c9a84c" stroke-width="0.8"/>
-                        <rect x="304" y="211" width="12" height="8" rx="2" fill="#161616"/>
-                        <!-- Dial -->
-                        <ellipse cx="180" cy="215" rx="95" ry="93" fill="#f0ede8" stroke="#c9a84c" stroke-width="0.5"/>
-                        <!-- Guilloché soleil on dial -->
-                        <ellipse cx="180" cy="215" rx="95" ry="93" fill="url(#guilloché)" opacity="0.5"/>
-                        <defs>
-                            <radialGradient id="guilloché" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%" stop-color="#d4cfc8"/>
-                                <stop offset="100%" stop-color="#f0ede8"/>
-                            </radialGradient>
-                        </defs>
-                        <!-- Hour indices — feuilles / dauphine style -->
-                        <rect x="178" y="126" width="4" height="14" rx="2" fill="#1a1a1a"/>
-                        <rect x="178" y="289" width="4" height="14" rx="2" fill="#1a1a1a"/>
-                        <rect x="91" y="213" width="14" height="4" rx="2" fill="#1a1a1a"/>
-                        <rect x="255" y="213" width="14" height="4" rx="2" fill="#1a1a1a"/>
-                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(30 180 215)"/>
-                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(60 180 215)"/>
-                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(120 180 215)"/>
-                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(150 180 215)"/>
-                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(210 180 215)"/>
-                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(240 180 215)"/>
-                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(300 180 215)"/>
-                        <rect x="178" y="126" width="4" height="12" rx="2" fill="#1a1a1a" transform="rotate(330 180 215)"/>
-                        <!-- Small seconds subdial at 6h -->
-                        <ellipse cx="180" cy="278" rx="20" ry="19" fill="#e8e5e0" stroke="#ccc" stroke-width="0.5"/>
-                        <line x1="180" y1="278" x2="186" y2="265" stroke="#1a1a1a" stroke-width="0.8"/>
-                        <circle cx="180" cy="278" r="2" fill="#1a1a1a"/>
-                        <!-- Dauphine hands -->
-                        <path d="M180 215 L172 162 L180 168 L188 162 Z" fill="#1a1a1a" transform="rotate(-45 180 215)"/>
-                        <path d="M180 215 L177 176 L180 180 L183 176 Z" fill="#c9a84c" transform="rotate(110 180 215)"/>
-                        <!-- Center -->
-                        <circle cx="180" cy="215" r="4" fill="#1a1a1a"/>
-                        <!-- Patek text -->
-                        <text x="180" y="205" text-anchor="middle" fill="#555" font-size="7" font-family="serif" letter-spacing="2">PATEK PHILIPPE</text>
-                        <text x="180" y="216" text-anchor="middle" fill="#888" font-size="5.5" font-family="serif" letter-spacing="1">GENÈVE</text>
-                        <text x="180" y="236" text-anchor="middle" fill="#888" font-size="5" font-family="serif" letter-spacing="1">CALATRAVA</text>
-                        <!-- Strap bottom — alligator -->
-                        <rect x="138" y="325" width="84" height="135" rx="12" fill="#1a1a1a" stroke="#2a2a2a"/>
-                        <rect x="148" y="333" width="64" height="118" rx="8" fill="#141414"/>
-                        <line x1="152" y1="345" x2="208" y2="345" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="357" x2="208" y2="357" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="369" x2="208" y2="369" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="381" x2="208" y2="381" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="393" x2="208" y2="393" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="405" x2="208" y2="405" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="417" x2="208" y2="417" stroke="#1e1e1e" stroke-width="2"/>
-                        <line x1="152" y1="432" x2="208" y2="432" stroke="#1e1e1e" stroke-width="2"/>
-                        <!-- Buckle -->
-                        <rect x="155" y="445" width="50" height="15" rx="4" fill="#1e1e1e" stroke="#c9a84c" stroke-width="0.7"/>
-                    </svg>
+                    <img id="mainImg" src="https://images.unsplash.com/photo-1663564304546-38addf4a4358?w=800&q=85&fit=crop&auto=format" alt="Patek Philippe Calatrava 5196P — cadran argenté guilloché, boîtier platine">
                 </div>
                 <div class="product-thumbs">
-                    <div class="thumb active">
-                        <svg viewBox="0 0 60 60" fill="none" style="width:36px;height:36px;"><ellipse cx="30" cy="30" rx="22" ry="22" stroke="#c9a84c" stroke-width="1"/><ellipse cx="30" cy="30" rx="16" ry="16" fill="#f0ede8"/><rect x="29" y="12" width="2" height="7" rx="1" fill="#1a1a1a"/><rect x="29" y="41" width="2" height="7" rx="1" fill="#1a1a1a"/></svg>
+                    <div class="thumb active" data-img="https://images.unsplash.com/photo-1663564304546-38addf4a4358?w=800&q=85&fit=crop&auto=format">
+                        <img src="https://images.unsplash.com/photo-1663564304546-38addf4a4358?w=200&q=75&fit=crop&auto=format" alt="Vue principale">
                     </div>
-                    <div class="thumb">
-                        <svg viewBox="0 0 60 60" fill="none" style="width:36px;height:36px;"><ellipse cx="30" cy="30" rx="18" ry="18" fill="#1c1c1c" stroke="#2a2a2a"/><text x="30" y="35" text-anchor="middle" fill="#c9a84c" font-size="8" font-family="serif">PP</text></svg>
+                    <div class="thumb" data-img="https://images.unsplash.com/photo-1663564305613-c40450f29903?w=800&q=85&fit=crop&auto=format">
+                        <img src="https://images.unsplash.com/photo-1663564305613-c40450f29903?w=200&q=75&fit=crop&auto=format" alt="Second angle">
                     </div>
-                    <div class="thumb">
-                        <svg viewBox="0 0 60 60" fill="none" style="width:36px;height:36px;"><rect x="20" y="8" width="20" height="44" rx="4" fill="#1a1a1a" stroke="#2a2a2a"/><rect x="23" y="12" width="14" height="36" rx="2" fill="#141414"/><line x1="23" y1="20" x2="37" y2="20" stroke="#1e1e1e" stroke-width="1.5"/><line x1="23" y1="28" x2="37" y2="28" stroke="#1e1e1e" stroke-width="1.5"/></svg>
+                    <div class="thumb" data-img="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=800&q=85&fit=crop&auto=format">
+                        <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=200&q=75&fit=crop&auto=format" alt="Détail cadran">
                     </div>
-                    <div class="thumb">
-                        <svg viewBox="0 0 60 60" fill="none" style="width:36px;height:36px;"><circle cx="30" cy="30" r="18" fill="#0d0d0d" stroke="#2a2a2a"/><text x="30" y="34" text-anchor="middle" fill="#c9a84c" font-size="10" font-family="serif">✓</text></svg>
+                    <div class="thumb" data-img="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=85&fit=crop&auto=format">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=75&fit=crop&auto=format" alt="Vue de profil">
                     </div>
                 </div>
             </div>
@@ -344,7 +281,12 @@
         const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}}),{threshold:0.12});
         document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
         window.addEventListener('load',()=>document.querySelectorAll('.product-visual .reveal,.product-info .reveal').forEach((el,i)=>setTimeout(()=>el.classList.add('visible'),150+i*100)));
-        document.querySelectorAll('.thumb').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active'));this.classList.add('active');}));
+        document.querySelectorAll('.thumb').forEach(t=>t.addEventListener('click',function(){
+            document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active'));
+            this.classList.add('active');
+            const newSrc=this.dataset.img;
+            if(newSrc){document.getElementById('mainImg').src=newSrc;}
+        }));
 
         const PRODUCT = {id:'patek-calatrava-5196p',brand:'Patek Philippe',name:'Calatrava 5196P',ref:'Réf. 5196P · Platine · 2021',price:28900,page:'patek-calatrava.html'};
         function addToCart() {
