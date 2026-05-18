@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demande de devis — Le Cercle des Montres</title>
+    <meta name="description" content="Demandez un devis personnalisé pour l'acquisition ou la cession d'une montre de prestige. Réponse sous 24h.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <script src="cart.js" defer></script>
+    <style>
+        :root {
+            --black: #080808; --dark: #111111; --card: #161616;
+            --border: #2a2a2a; --muted: #6b6b6b; --light: #c8c8c8;
+            --white: #f5f5f0; --gold: #c9a84c; --gold-light: #e2c97e;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+        .gold { color: var(--gold); }
+        .btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2.2rem; font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: var(--transition); border: none; }
+        .btn-gold { background: var(--gold); color: var(--black); }
+        .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(201,168,76,0.4); }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* Nav */
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.6rem 0; transition: padding 0.4s, background 0.4s, border-color 0.4s; border-bottom: 1px solid transparent; }
+        .nav.scrolled { background: rgba(8,8,8,0.95); backdrop-filter: blur(20px); padding: 1rem 0; border-bottom-color: var(--border); }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; gap: 0.8rem; }
+        .logo-mark { width: 40px; height: 40px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .logo-mark span { font-family: 'Playfair Display', serif; font-size: 0.85rem; font-weight: 600; color: var(--gold); }
+        .logo-text { display: flex; flex-direction: column; }
+        .logo-name { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 500; color: var(--white); letter-spacing: 0.08em; line-height: 1.2; }
+        .logo-sub { font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-link { font-size: 0.7rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light); position: relative; transition: color 0.3s; }
+        .nav-link::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s; }
+        .nav-link:hover { color: var(--white); }
+        .nav-link:hover::after { width: 100%; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+        .hamburger span { display: block; width: 24px; height: 1px; background: var(--white); }
+        .mobile-menu { display: none; position: fixed; inset: 0; background: var(--black); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+        .mobile-menu.open { opacity: 1; pointer-events: all; }
+        .mobile-menu a { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--white); transition: color 0.3s; }
+        .mobile-menu a:hover { color: var(--gold); }
+        .mobile-close { position: absolute; top: 1.8rem; right: 2rem; font-size: 1.5rem; cursor: pointer; color: var(--light); }
+        .cart-icon-btn { position: relative; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); color: var(--light); transition: var(--transition); flex-shrink: 0; }
+        .cart-icon-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .cart-badge { position: absolute; top: -6px; right: -6px; width: 18px; height: 18px; background: var(--gold); color: var(--black); font-size: 0.6rem; font-weight: 700; border-radius: 50%; display: none; align-items: center; justify-content: center; }
+
+        /* Breadcrumb */
+        .breadcrumb { padding: 7rem 0 0; }
+        .breadcrumb-inner { display: flex; align-items: center; gap: 0.7rem; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; }
+        .breadcrumb-inner a:hover { color: var(--gold); }
+        .breadcrumb-sep { color: var(--border); }
+        .breadcrumb-current { color: var(--light); }
+
+        /* Hero */
+        .devis-hero { padding: 3rem 0 5rem; border-bottom: 1px solid var(--border); }
+        .hero-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1.2rem; }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 1.2rem; }
+        .hero-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--light); max-width: 540px; line-height: 1.8; }
+        .hero-badges { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2.5rem; }
+        .hero-badge { display: flex; align-items: center; gap: 0.6rem; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.05em; }
+        .hero-badge svg { color: var(--gold); flex-shrink: 0; }
+
+        /* Main Layout */
+        .devis-layout { display: grid; grid-template-columns: 1fr 420px; gap: 4rem; padding: 5rem 0 6rem; align-items: start; }
+
+        /* Form */
+        .form-section { }
+        .form-block { margin-bottom: 3rem; }
+        .form-block-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 400; color: var(--white); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.8rem; }
+        .form-block-num { width: 28px; height: 28px; border: 1px solid rgba(201,168,76,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--gold); flex-shrink: 0; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+        .form-label .req { color: var(--gold); }
+        .form-input, .form-select, .form-textarea {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 300;
+            padding: 0.9rem 1.1rem;
+            width: 100%;
+            transition: border-color 0.3s, background 0.3s;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: rgba(201,168,76,0.5); background: #141414; }
+        .form-input.error, .form-select.error, .form-textarea.error { border-color: #c97a4c; }
+        .form-select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%236b6b6b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+        .form-select option { background: var(--dark); }
+        .form-textarea { resize: vertical; min-height: 130px; }
+        .form-hint { font-size: 0.65rem; color: var(--muted); margin-top: 0.3rem; }
+        .form-error { font-size: 0.65rem; color: #c97a4c; margin-top: 0.3rem; display: none; }
+        .form-group.has-error .form-error { display: block; }
+        .form-group.has-error .form-input,
+        .form-group.has-error .form-select,
+        .form-group.has-error .form-textarea { border-color: #c97a4c; }
+
+        /* Type selector */
+        .type-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
+        .type-option { position: relative; cursor: pointer; }
+        .type-option input { position: absolute; opacity: 0; width: 0; height: 0; }
+        .type-label { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1.2rem 0.8rem; border: 1px solid var(--border); background: var(--dark); transition: var(--transition); text-align: center; }
+        .type-label svg { color: var(--muted); transition: color 0.3s; }
+        .type-label-title { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); transition: color 0.3s; }
+        .type-label-sub { font-size: 0.6rem; color: var(--muted); }
+        .type-option input:checked + .type-label { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+        .type-option input:checked + .type-label svg { color: var(--gold); }
+        .type-option input:checked + .type-label .type-label-title { color: var(--gold); }
+        .type-option:hover .type-label { border-color: rgba(201,168,76,0.3); }
+
+        /* Watch preview pill */
+        .watch-preview { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1.1rem; background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2); margin-bottom: 1.2rem; }
+        .watch-preview-img { width: 48px; height: 48px; object-fit: cover; flex-shrink: 0; }
+        .watch-preview-info { flex: 1; min-width: 0; }
+        .watch-preview-brand { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+        .watch-preview-name { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .watch-preview-price { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+        .watch-preview-remove { color: var(--muted); cursor: pointer; font-size: 1rem; flex-shrink: 0; transition: color 0.3s; }
+        .watch-preview-remove:hover { color: var(--white); }
+
+        /* Cart summary in form */
+        .cart-devis-list { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.2rem; }
+
+        /* Submit */
+        .form-submit-area { margin-top: 2rem; }
+        .btn-submit { width: 100%; justify-content: center; padding: 1.1rem; font-size: 0.75rem; letter-spacing: 0.25em; position: relative; overflow: hidden; }
+        .btn-submit::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); transform: translateX(-100%); transition: transform 0.6s; }
+        .btn-submit:hover::after { transform: translateX(100%); }
+        .form-privacy { font-size: 0.62rem; color: var(--muted); margin-top: 1rem; text-align: center; line-height: 1.6; }
+
+        /* Sidebar */
+        .devis-sidebar { position: sticky; top: 7rem; }
+        .sidebar-card { background: var(--dark); border: 1px solid var(--border); padding: 2rem; margin-bottom: 1.5rem; }
+        .sidebar-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; color: var(--white); margin-bottom: 1.5rem; }
+        .sidebar-steps { display: flex; flex-direction: column; gap: 1.2rem; }
+        .sidebar-step { display: flex; align-items: flex-start; gap: 1rem; }
+        .step-num { width: 28px; height: 28px; border: 1px solid rgba(201,168,76,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: var(--gold); flex-shrink: 0; margin-top: 0.1rem; }
+        .step-content { }
+        .step-title { font-size: 0.78rem; font-weight: 500; color: var(--white); margin-bottom: 0.2rem; }
+        .step-text { font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
+        .sidebar-guarantees { display: flex; flex-direction: column; gap: 0.8rem; }
+        .sidebar-guarantee { display: flex; align-items: center; gap: 0.8rem; font-size: 0.72rem; color: var(--muted); }
+        .sidebar-guarantee svg { color: var(--gold); flex-shrink: 0; }
+        .sidebar-contact { text-align: center; padding-top: 1.5rem; border-top: 1px solid var(--border); margin-top: 1.5rem; }
+        .sidebar-contact-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+        .sidebar-contact-email { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--gold); }
+        .sidebar-contact-phone { font-size: 0.78rem; color: var(--light); margin-top: 0.3rem; }
+
+        /* Success state */
+        .success-screen { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 6rem 2rem; min-height: 60vh; }
+        .success-screen.show { display: flex; }
+        .success-icon { width: 80px; height: 80px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2.5rem; color: var(--gold); animation: scaleIn 0.5s ease; }
+        @keyframes scaleIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .success-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 400; color: var(--white); margin-bottom: 1rem; }
+        .success-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--light); max-width: 480px; line-height: 1.8; margin-bottom: 2.5rem; }
+        .success-ref { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 3rem; }
+        .success-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+        /* Footer */
+        .footer-mini { background: var(--dark); border-top: 1px solid var(--border); padding: 2.5rem 0; }
+        .footer-mini-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+        .footer-mini-logo { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--light); letter-spacing: 0.1em; }
+        .footer-mini-copy { font-size: 0.65rem; color: var(--muted); }
+
+        @media (max-width: 1024px) {
+            .devis-layout { grid-template-columns: 1fr; gap: 3rem; }
+            .devis-sidebar { position: static; }
+        }
+        @media (max-width: 768px) {
+            .nav-links, .nav .btn { display: none; }
+            .hamburger { display: flex; }
+            .mobile-menu { display: flex; }
+            .form-grid { grid-template-columns: 1fr; }
+            .type-selector { grid-template-columns: 1fr; }
+            .footer-mini-inner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav" id="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index.html" class="logo">
+                    <div class="logo-mark"><span>LCM</span></div>
+                    <div class="logo-text">
+                        <span class="logo-name">Le Cercle des Montres</span>
+                        <span class="logo-sub">Horlogerie de Prestige</span>
+                    </div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html#collections" class="nav-link">Collections</a></li>
+                    <li><a href="index.html#montres" class="nav-link">Montres</a></li>
+                    <li><a href="index.html#expertise" class="nav-link">Notre expertise</a></li>
+                    <li><a href="devis.html" class="nav-link" style="color:var(--gold);">Devis</a></li>
+                </ul>
+                <div style="display:flex;align-items:center;gap:1rem;">
+                    <a href="panier.html" class="cart-icon-btn" title="Panier">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M1.5 1.5H3L4.5 10.5H13.5L15 4.5H4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="13.5" r="1" fill="currentColor"/><circle cx="12" cy="13.5" r="1" fill="currentColor"/></svg>
+                        <span class="cart-badge">0</span>
+                    </a>
+                </div>
+                <button class="hamburger" id="hamburger" onclick="toggleMobile()">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="mobile-close" onclick="closeMobile()">✕</span>
+        <a href="index.html#collections" onclick="closeMobile()">Collections</a>
+        <a href="index.html#montres" onclick="closeMobile()">Montres</a>
+        <a href="index.html#expertise" onclick="closeMobile()">Notre expertise</a>
+        <a href="devis.html" onclick="closeMobile()" style="color:var(--gold);">Devis</a>
+        <a href="panier.html" onclick="closeMobile()">Panier</a>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <a href="index.html">Accueil</a>
+                <span class="breadcrumb-sep">—</span>
+                <span class="breadcrumb-current">Demande de devis</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="devis-hero">
+        <div class="container">
+            <span class="hero-label">Service personnalisé</span>
+            <h1 class="hero-title">Demande de devis<br><em style="color:var(--gold);font-style:italic;">sur mesure</em></h1>
+            <p class="hero-sub">Nos experts vous répondent sous 24 heures ouvrées. Chaque demande est traitée avec la plus grande confidentialité.</p>
+            <div class="hero-badges">
+                <div class="hero-badge">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                    Réponse sous 24h
+                </div>
+                <div class="hero-badge">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 4V3a3 3 0 1 1 6 0v1" stroke="currentColor" stroke-width="1.2"/></svg>
+                    100% confidentiel
+                </div>
+                <div class="hero-badge">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C4.4 1.5 2 4 2 7c0 4.5 6 7.5 6 7.5S14 11.5 14 7c0-3-2.4-5.5-6-5.5Z" stroke="currentColor" stroke-width="1.2"/><path d="M6 7L7.5 8.5L10 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                    Sans engagement
+                </div>
+                <div class="hero-badge">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L9.8 6H14.5L10.5 8.8L12 13.5L8 10.5L4 13.5L5.5 8.8L1.5 6H6.2L8 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                    Expertise certifiée
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <div class="container">
+
+        <!-- Success screen (hidden by default) -->
+        <div class="success-screen" id="successScreen">
+            <div class="success-icon">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M9 18L15 24L27 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h2 class="success-title">Demande envoyée</h2>
+            <p class="success-text">Merci pour votre demande. Nos experts l'ont bien reçue et vous contacteront dans les 24 heures ouvrées.</p>
+            <div class="success-ref" id="successRef"></div>
+            <div class="success-actions">
+                <a href="index.html#montres" class="btn btn-gold">Continuer à explorer</a>
+                <a href="index.html" class="btn btn-outline">Retour à l'accueil</a>
+            </div>
+        </div>
+
+        <!-- Form layout -->
+        <div class="devis-layout" id="devisLayout">
+
+            <!-- Left: Form -->
+            <div class="form-section">
+                <form id="devisForm" novalidate>
+                    <!-- Hidden fields -->
+                    <input type="hidden" name="_subject" value="Nouvelle demande de devis — Le Cercle des Montres">
+                    <input type="hidden" name="_language" value="fr">
+
+                    <!-- Bloc 1: Type de demande -->
+                    <div class="form-block">
+                        <div class="form-block-title">
+                            <span class="form-block-num">1</span>
+                            Type de demande
+                        </div>
+                        <div class="type-selector">
+                            <label class="type-option">
+                                <input type="radio" name="type_demande" value="Achat" checked>
+                                <div class="type-label">
+                                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M2 2H4L6 13H17L19 6H6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="17" r="1.5" fill="currentColor"/><circle cx="15" cy="17" r="1.5" fill="currentColor"/></svg>
+                                    <span class="type-label-title">Achat</span>
+                                    <span class="type-label-sub">Je souhaite acquérir</span>
+                                </div>
+                            </label>
+                            <label class="type-option">
+                                <input type="radio" name="type_demande" value="Vente">
+                                <div class="type-label">
+                                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.4"/><path d="M11 7v4l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 14.5h6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                                    <span class="type-label-title">Vente</span>
+                                    <span class="type-label-sub">Je souhaite céder</span>
+                                </div>
+                            </label>
+                            <label class="type-option">
+                                <input type="radio" name="type_demande" value="Information">
+                                <div class="type-label">
+                                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.4"/><path d="M11 10v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="7" r="1" fill="currentColor"/></svg>
+                                    <span class="type-label-title">Information</span>
+                                    <span class="type-label-sub">Je me renseigne</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Bloc 2: La montre -->
+                    <div class="form-block">
+                        <div class="form-block-title">
+                            <span class="form-block-num">2</span>
+                            La montre concernée
+                        </div>
+
+                        <!-- Watch preview (from URL params or cart) -->
+                        <div id="watchPreviewArea"></div>
+
+                        <div class="form-grid">
+                            <div class="form-group full" id="watchNameGroup">
+                                <label class="form-label">Montre souhaitée <span class="req">*</span></label>
+                                <input type="text" name="montre" id="watchName" class="form-input" placeholder="Ex : Rolex Submariner, Patek Calatrava…">
+                                <div class="form-error">Veuillez indiquer la montre souhaitée</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Référence</label>
+                                <input type="text" name="reference" id="watchRef" class="form-input" placeholder="Ex : 126610LN">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Budget indicatif</label>
+                                <select name="budget" class="form-select">
+                                    <option value="">Sélectionner…</option>
+                                    <option value="Moins de 10 000 €">Moins de 10 000 €</option>
+                                    <option value="10 000 – 20 000 €">10 000 – 20 000 €</option>
+                                    <option value="20 000 – 40 000 €">20 000 – 40 000 €</option>
+                                    <option value="40 000 – 80 000 €">40 000 – 80 000 €</option>
+                                    <option value="Plus de 80 000 €">Plus de 80 000 €</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">État de la montre</label>
+                                <select name="etat" class="form-select">
+                                    <option value="">Sélectionner…</option>
+                                    <option value="Neuf / Non porté">Neuf / Non porté</option>
+                                    <option value="Très bon état">Très bon état</option>
+                                    <option value="Bon état">Bon état</option>
+                                    <option value="État correct">État correct</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Boîte et papiers</label>
+                                <select name="boite_papiers" class="form-select">
+                                    <option value="">Sélectionner…</option>
+                                    <option value="Boîte + Papiers complets">Boîte + Papiers complets</option>
+                                    <option value="Boîte seule">Boîte seule</option>
+                                    <option value="Papiers seuls">Papiers seuls</option>
+                                    <option value="Sans boîte ni papiers">Sans boîte ni papiers</option>
+                                </select>
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">Message / Précisions</label>
+                                <textarea name="message" class="form-textarea" placeholder="Décrivez votre demande, précisez l'année si connue, l'état général, vos attentes particulières…"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bloc 3: Vos coordonnées -->
+                    <div class="form-block">
+                        <div class="form-block-title">
+                            <span class="form-block-num">3</span>
+                            Vos coordonnées
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group" id="nomGroup">
+                                <label class="form-label">Nom complet <span class="req">*</span></label>
+                                <input type="text" name="nom" id="nomInput" class="form-input" placeholder="Jean Dupont">
+                                <div class="form-error">Veuillez renseigner votre nom</div>
+                            </div>
+                            <div class="form-group" id="emailGroup">
+                                <label class="form-label">Adresse e-mail <span class="req">*</span></label>
+                                <input type="email" name="email" id="emailInput" class="form-input" placeholder="jean@exemple.com">
+                                <div class="form-error">Adresse e-mail invalide</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Téléphone</label>
+                                <input type="tel" name="telephone" class="form-input" placeholder="+33 6 12 34 56 78">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Pays</label>
+                                <select name="pays" class="form-select">
+                                    <option value="France">France</option>
+                                    <option value="Belgique">Belgique</option>
+                                    <option value="Suisse">Suisse</option>
+                                    <option value="Luxembourg">Luxembourg</option>
+                                    <option value="Monaco">Monaco</option>
+                                    <option value="Italie">Italie</option>
+                                    <option value="Espagne">Espagne</option>
+                                    <option value="Allemagne">Allemagne</option>
+                                    <option value="Royaume-Uni">Royaume-Uni</option>
+                                    <option value="Autre">Autre pays européen</option>
+                                </select>
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">Comment avez-vous découvert Le Cercle des Montres ?</label>
+                                <select name="origine" class="form-select">
+                                    <option value="">Sélectionner…</option>
+                                    <option value="Moteur de recherche">Moteur de recherche (Google…)</option>
+                                    <option value="Réseaux sociaux">Réseaux sociaux</option>
+                                    <option value="Recommandation">Recommandation d'un proche</option>
+                                    <option value="Presse / Article">Presse / Article</option>
+                                    <option value="Autre">Autre</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="form-submit-area">
+                        <button type="submit" class="btn btn-gold btn-submit" id="submitBtn">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 8H14.5M9.5 3L14.5 8L9.5 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            Envoyer ma demande
+                        </button>
+                        <p class="form-privacy">
+                            En soumettant ce formulaire, vous acceptez que vos informations soient utilisées uniquement pour traiter votre demande. Conformément au RGPD, vous pouvez exercer vos droits à tout moment.
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right: Sidebar -->
+            <aside class="devis-sidebar">
+                <div class="sidebar-card">
+                    <div class="sidebar-title">Comment ça fonctionne</div>
+                    <div class="sidebar-steps">
+                        <div class="sidebar-step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Vous soumettez votre demande</div>
+                                <div class="step-text">Remplissez le formulaire avec les informations souhaitées. Plus vous êtes précis, plus notre réponse sera adaptée.</div>
+                            </div>
+                        </div>
+                        <div class="sidebar-step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Nos experts analysent votre dossier</div>
+                                <div class="step-text">Sous 24h ouvrées, un horloger spécialisé étudie votre demande et prépare une offre personnalisée.</div>
+                            </div>
+                        </div>
+                        <div class="sidebar-step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Vous recevez votre devis</div>
+                                <div class="step-text">Devis détaillé par e-mail, sans engagement. Vous décidez librement de la suite à donner.</div>
+                            </div>
+                        </div>
+                        <div class="sidebar-step">
+                            <div class="step-num">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Transaction sécurisée</div>
+                                <div class="step-text">Si vous acceptez, nous organisons la transaction dans les meilleures conditions de sécurité et de confidentialité.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-title">Nos engagements</div>
+                    <div class="sidebar-guarantees">
+                        <div class="sidebar-guarantee">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                            Réponse garantie sous 24h ouvrées
+                        </div>
+                        <div class="sidebar-guarantee">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 4V3a3 3 0 1 1 6 0v1" stroke="currentColor" stroke-width="1.2"/></svg>
+                            Confidentialité absolue de vos données
+                        </div>
+                        <div class="sidebar-guarantee">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L9.8 6H14.5L10.5 8.8L12 13.5L8 10.5L4 13.5L5.5 8.8L1.5 6H6.2L8 1.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+                            Expertise certifiée par des horlogers
+                        </div>
+                        <div class="sidebar-guarantee">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C4.4 1.5 2 4 2 7c0 4.5 6 7.5 6 7.5S14 11.5 14 7c0-3-2.4-5.5-6-5.5Z" stroke="currentColor" stroke-width="1.2"/></svg>
+                            Livraison assurée dans toute l'Europe
+                        </div>
+                        <div class="sidebar-guarantee">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+                            Devis sans engagement, gratuit
+                        </div>
+                    </div>
+                    <div class="sidebar-contact">
+                        <div class="sidebar-contact-label">Préférez-vous nous écrire ?</div>
+                        <div class="sidebar-contact-email">contact@lecercledesmontres.fr</div>
+                        <div class="sidebar-contact-phone">+33 1 23 45 67 89</div>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-mini">
+        <div class="container">
+            <div class="footer-mini-inner">
+                <div class="footer-mini-logo">Le Cercle des Montres — Horlogerie de Prestige</div>
+                <div class="footer-mini-copy">© 2025 Le Cercle des Montres. Tous droits réservés.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ── Nav scroll ──────────────────────────────────────────────────
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // ── Mobile menu ─────────────────────────────────────────────────
+        function toggleMobile() { document.getElementById('mobileMenu').classList.toggle('open'); }
+        function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+        // ── URL params → pre-fill form ──────────────────────────────────
+        (function prefillFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const montre  = params.get('montre');
+            const ref     = params.get('ref');
+            const prix    = params.get('prix');
+            const img     = params.get('img');
+            const panier  = params.get('panier');
+
+            if (panier && typeof Cart !== 'undefined') {
+                // Mode panier : afficher les montres du panier
+                const items = Cart.get();
+                if (items.length > 0) {
+                    prefillCartItems(items);
+                }
+            } else if (montre) {
+                // Mode produit : une seule montre
+                document.getElementById('watchName').value = montre;
+                if (ref)  document.getElementById('watchRef').value = ref;
+                showWatchPreview(montre, ref, prix, img);
+            }
+        })();
+
+        function showWatchPreview(name, ref, prix, img) {
+            const area = document.getElementById('watchPreviewArea');
+            const priceLabel = prix ? parseInt(prix).toLocaleString('fr-FR') + ' €' : '';
+            area.innerHTML = `
+                <div class="watch-preview" id="watchPreviewPill">
+                    ${img ? `<img class="watch-preview-img" src="${img}" alt="${name}">` : ''}
+                    <div class="watch-preview-info">
+                        <div class="watch-preview-brand">Sélectionnée</div>
+                        <div class="watch-preview-name">${name}</div>
+                        ${priceLabel ? `<div class="watch-preview-price">${priceLabel}</div>` : ''}
+                    </div>
+                    <span class="watch-preview-remove" onclick="clearWatchPreview()" title="Retirer">✕</span>
+                </div>`;
+        }
+
+        function prefillCartItems(items) {
+            const area = document.getElementById('watchPreviewArea');
+            const nameInput = document.getElementById('watchName');
+            // Build list of cart watches
+            let html = '<div class="cart-devis-list">';
+            const names = [];
+            items.forEach(item => {
+                html += `
+                <div class="watch-preview">
+                    <div class="watch-preview-info">
+                        <div class="watch-preview-brand">${item.brand}</div>
+                        <div class="watch-preview-name">${item.name}</div>
+                        <div class="watch-preview-price">${item.price.toLocaleString('fr-FR')} €</div>
+                    </div>
+                </div>`;
+                names.push(item.name);
+            });
+            html += '</div>';
+            area.innerHTML = html;
+            // Fill watch name field with comma-separated list
+            nameInput.value = names.join(', ');
+            // Hide the name field group since it's pre-filled
+            document.getElementById('watchNameGroup').style.opacity = '0.5';
+            document.getElementById('watchNameGroup').style.pointerEvents = 'none';
+        }
+
+        function clearWatchPreview() {
+            document.getElementById('watchPreviewArea').innerHTML = '';
+            document.getElementById('watchName').value = '';
+            document.getElementById('watchRef').value = '';
+        }
+
+        // ── Form validation & submit ─────────────────────────────────────
+        document.getElementById('devisForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            if (!validateForm()) return;
+
+            const btn = document.getElementById('submitBtn');
+            btn.textContent = 'Envoi en cours…';
+            btn.disabled = true;
+
+            // Collect form data
+            const formData = new FormData(this);
+            const ref = 'LCM-' + Date.now().toString(36).toUpperCase();
+
+            try {
+                // Try to send via Formspree (replace XXXXXXXX with your Formspree form ID)
+                const FORMSPREE_ID = 'XXXXXXXX';
+                if (FORMSPREE_ID !== 'XXXXXXXX') {
+                    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+                        method: 'POST', body: formData,
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (!res.ok) throw new Error('Formspree error');
+                } else {
+                    // Fallback: open mailto with form data
+                    sendMailto(formData);
+                }
+            } catch(err) {
+                sendMailto(formData);
+            }
+
+            // Show success screen
+            document.getElementById('devisLayout').style.display = 'none';
+            document.getElementById('successRef').textContent = 'Référence de votre demande : ' + ref;
+            const success = document.getElementById('successScreen');
+            success.classList.add('show');
+            success.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function sendMailto(formData) {
+            const nom      = formData.get('nom') || '';
+            const email    = formData.get('email') || '';
+            const montre   = formData.get('montre') || '';
+            const type     = formData.get('type_demande') || '';
+            const message  = formData.get('message') || '';
+            const subject  = encodeURIComponent('Demande de devis — ' + montre);
+            const body     = encodeURIComponent(
+                `Type : ${type}\nMontre : ${montre}\nNom : ${nom}\nEmail : ${email}\n\n${message}`
+            );
+            window.open(`mailto:contact@lecercledesmontres.fr?subject=${subject}&body=${body}`);
+        }
+
+        function validateForm() {
+            let valid = true;
+            // Nom
+            const nom = document.getElementById('nomInput');
+            const nomGroup = document.getElementById('nomGroup');
+            if (!nom.value.trim()) {
+                nomGroup.classList.add('has-error');
+                valid = false;
+            } else { nomGroup.classList.remove('has-error'); }
+
+            // Email
+            const email = document.getElementById('emailInput');
+            const emailGroup = document.getElementById('emailGroup');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value.trim())) {
+                emailGroup.classList.add('has-error');
+                valid = false;
+            } else { emailGroup.classList.remove('has-error'); }
+
+            // Montre
+            const watchName = document.getElementById('watchName');
+            const watchGroup = document.getElementById('watchNameGroup');
+            if (!watchName.value.trim()) {
+                watchGroup.classList.add('has-error');
+                valid = false;
+            } else { watchGroup.classList.remove('has-error'); }
+
+            return valid;
+        }
+
+        // Clear errors on input
+        ['nomInput','emailInput','watchName'].forEach(id => {
+            document.getElementById(id)?.addEventListener('input', function() {
+                this.closest('.form-group')?.classList.remove('has-error');
+            });
+        });
+    </script>
+</body>
+</html>
