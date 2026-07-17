@@ -275,48 +275,75 @@
         /* ─── Hero ─────────────────────────────────────────────────── */
         .hero {
             position: relative;
-            min-height: 100vh;
+            height: 100vh;
+            min-height: 600px;
             display: flex;
             align-items: center;
             overflow: hidden;
         }
-        .hero-bg {
+
+        /* Slideshow */
+        .hero-slides {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hero-slide.active { opacity: 1; }
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transform-origin: center;
+            animation: none;
+        }
+        .hero-slide.active img {
+            animation: kenBurns 8s ease-out forwards;
+        }
+        @keyframes kenBurns {
+            from { transform: scale(1.08); }
+            to   { transform: scale(1); }
+        }
+        /* Dark cinematic overlay */
+        .hero-overlay {
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 50%),
-                var(--black);
+                linear-gradient(to right, rgba(8,8,8,0.82) 0%, rgba(8,8,8,0.45) 55%, rgba(8,8,8,0.2) 100%),
+                linear-gradient(to top, rgba(8,8,8,0.6) 0%, transparent 40%);
+            z-index: 1;
         }
-        .hero-grid {
+        /* Gold grain texture */
+        .hero-noise {
             position: absolute;
             inset: 0;
-            background-image:
-                linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
-            background-size: 80px 80px;
-            mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+            z-index: 2;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            pointer-events: none;
         }
-        .hero-watch-bg {
-            position: absolute;
-            right: -5%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 55vw;
-            max-width: 800px;
-            opacity: 0.07;
-        }
+
+        /* Content */
         .hero-content {
             position: relative;
-            z-index: 1;
-            padding: 8rem 0 6rem;
-            max-width: 720px;
+            z-index: 3;
+            padding: 0;
+            max-width: 680px;
         }
         .hero-eyebrow {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.8s 0.3s ease forwards;
         }
         .hero-eyebrow-line {
             width: 50px;
@@ -324,39 +351,113 @@
             background: var(--gold);
         }
         .hero-eyebrow-text {
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             font-weight: 500;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.35em;
             text-transform: uppercase;
             color: var(--gold);
         }
         .hero-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-size: clamp(3rem, 6.5vw, 5.5rem);
             font-weight: 400;
             line-height: 1.08;
             color: var(--white);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
+            overflow: hidden;
         }
+        .hero-title .line {
+            display: block;
+            opacity: 0;
+            transform: translateY(60px);
+            animation: slideUp 0.9s ease forwards;
+        }
+        .hero-title .line:nth-child(1) { animation-delay: 0.5s; }
+        .hero-title .line:nth-child(2) { animation-delay: 0.7s; }
         .hero-title em {
             font-style: italic;
             color: var(--gold);
         }
         .hero-subtitle {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
             font-weight: 300;
             color: var(--light);
-            max-width: 480px;
-            line-height: 1.8;
+            max-width: 460px;
+            line-height: 1.85;
             margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.8s 0.9s ease forwards;
         }
         .hero-actions {
             display: flex;
             align-items: center;
             gap: 1.5rem;
             flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.8s 1.1s ease forwards;
         }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Bottom HUD */
+        .hero-hud {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 4;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 0 2rem 2.5rem;
+            pointer-events: none;
+        }
+        /* Slide counter */
+        .hero-counter {
+            font-size: 0.62rem;
+            letter-spacing: 0.25em;
+            color: rgba(255,255,255,0.4);
+            pointer-events: auto;
+        }
+        .hero-counter .current { color: var(--gold); font-size: 0.9rem; font-family: 'Playfair Display', serif; }
+
+        /* Progress bars */
+        .hero-progress {
+            display: flex;
+            gap: 6px;
+            pointer-events: auto;
+        }
+        .hero-prog-bar {
+            width: 40px;
+            height: 2px;
+            background: rgba(255,255,255,0.2);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-prog-bar::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            background: var(--gold);
+            width: 0;
+            transition: none;
+        }
+        .hero-prog-bar.active::after {
+            width: 100%;
+            transition: width var(--slide-duration, 6s) linear;
+        }
+        .hero-prog-bar.done::after { width: 100%; }
+
+        /* Scroll indicator */
         .hero-scroll {
             position: absolute;
             bottom: 2.5rem;
@@ -366,14 +467,17 @@
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
-            opacity: 0.5;
-            transition: opacity 0.3s;
+            opacity: 0;
+            z-index: 4;
+            animation: fadeUp 1s 1.5s ease forwards;
+            pointer-events: auto;
         }
-        .hero-scroll:hover { opacity: 1; }
+        .hero-scroll:hover { opacity: 0.8 !important; }
         .hero-scroll span {
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
+            font-size: 0.58rem;
+            letter-spacing: 0.28em;
             text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
         }
         .scroll-line {
             width: 1px;
@@ -382,25 +486,31 @@
             animation: scrollAnim 2s ease infinite;
         }
         @keyframes scrollAnim {
-            0% { transform: scaleY(0); transform-origin: top; }
-            50% { transform: scaleY(1); transform-origin: top; }
-            51% { transform: scaleY(1); transform-origin: bottom; }
+            0%   { transform: scaleY(0); transform-origin: top; }
+            50%  { transform: scaleY(1); transform-origin: top; }
+            51%  { transform: scaleY(1); transform-origin: bottom; }
             100% { transform: scaleY(0); transform-origin: bottom; }
         }
 
-        /* Hero watch illustration */
-        .hero-watch-art {
-            position: absolute;
-            right: 8%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: min(45vw, 560px);
-            opacity: 1;
-            animation: floatWatch 6s ease-in-out infinite;
+        /* Slide caption (bottom right) */
+        .hero-caption {
+            font-size: 0.58rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            text-align: right;
+            line-height: 1.6;
+            pointer-events: none;
         }
-        @keyframes floatWatch {
-            0%, 100% { transform: translateY(-50%) translateY(0); }
-            50% { transform: translateY(-50%) translateY(-15px); }
+
+        @media (max-width: 768px) {
+            .hero-hud { padding: 0 1.5rem 2rem; }
+            .hero-prog-bar { width: 28px; }
+            .hero-overlay {
+                background:
+                    linear-gradient(to bottom, rgba(8,8,8,0.4) 0%, rgba(8,8,8,0.7) 100%),
+                    rgba(8,8,8,0.4);
+            }
         }
 
         /* ─── Stats Bar ────────────────────────────────────────────── */
@@ -1109,99 +1219,69 @@
     </div>
 
     <!-- ── Hero ───────────────────────────────────────────────────── -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-grid"></div>
+    <section class="hero" id="hero">
 
-        <!-- Decorative watch art (right side) -->
-        <div class="hero-watch-art" aria-hidden="true">
-            <svg viewBox="0 0 500 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Strap top -->
-                <rect x="185" y="0" width="130" height="140" rx="18" fill="#161616" stroke="#2a2a2a" stroke-width="1"/>
-                <rect x="200" y="10" width="100" height="125" rx="12" fill="#111"/>
-                <line x1="220" y1="35" x2="280" y2="35" stroke="#2a2a2a" stroke-width="1"/>
-                <line x1="220" y1="55" x2="280" y2="55" stroke="#2a2a2a" stroke-width="1"/>
-                <line x1="220" y1="75" x2="280" y2="75" stroke="#2a2a2a" stroke-width="1"/>
-                <line x1="220" y1="95" x2="280" y2="95" stroke="#2a2a2a" stroke-width="1"/>
-                <line x1="220" y1="115" x2="280" y2="115" stroke="#2a2a2a" stroke-width="1"/>
-                <!-- Case -->
-                <rect x="130" y="135" width="240" height="265" rx="36" fill="#1a1a1a" stroke="#c9a84c" stroke-width="1.5"/>
-                <rect x="142" y="147" width="216" height="241" rx="28" fill="#111" stroke="#2a2a2a" stroke-width="1"/>
-                <!-- Crown -->
-                <rect x="370" y="230" width="22" height="45" rx="8" fill="#1a1a1a" stroke="#c9a84c" stroke-width="1"/>
-                <rect x="374" y="238" width="14" height="29" rx="4" fill="#161616"/>
-                <!-- Dial -->
-                <circle cx="250" cy="267" r="95" fill="#0d0d0d" stroke="#c9a84c" stroke-width="1"/>
-                <circle cx="250" cy="267" r="88" fill="#0a0a0a" stroke="#1a1a1a" stroke-width="0.5"/>
-                <!-- Hour markers -->
-                <rect x="248.5" y="184" width="3" height="14" rx="1" fill="#c9a84c"/>
-                <rect x="248.5" y="337" width="3" height="14" rx="1" fill="#c9a84c"/>
-                <rect x="159" y="265.5" width="14" height="3" rx="1" fill="#c9a84c"/>
-                <rect x="327" y="265.5" width="14" height="3" rx="1" fill="#c9a84c"/>
-                <!-- Small hour markers -->
-                <rect x="284.5" y="186.5" width="2" height="9" rx="1" fill="#5a5a5a" transform="rotate(30 285.5 191)"/>
-                <rect x="313.5" y="205.5" width="2" height="9" rx="1" fill="#5a5a5a" transform="rotate(60 314.5 210)"/>
-                <rect x="324.5" y="240.5" width="9" height="2" rx="1" fill="#5a5a5a" transform="rotate(60 329 241.5)"/>
-                <rect x="316.5" y="299" width="2" height="9" rx="1" fill="#5a5a5a" transform="rotate(-60 317.5 303.5)"/>
-                <rect x="286.5" y="329.5" width="2" height="9" rx="1" fill="#5a5a5a" transform="rotate(-30 287.5 334)"/>
-                <rect x="211.5" y="330.5" width="2" height="9" rx="1" fill="#5a5a5a" transform="rotate(30 212.5 335)"/>
-                <rect x="181.5" y="300.5" width="2" height="9" rx="1" fill="#5a5a5a" transform="rotate(60 182.5 305)"/>
-                <rect x="171" y="242.5" width="9" height="2" rx="1" fill="#5a5a5a" transform="rotate(-60 175.5 243.5)"/>
-                <rect x="182.5" y="207.5" width="2" height="9" rx="1" fill="#5a5a5a" transform="rotate(-60 183.5 212)"/>
-                <rect x="212.5" y="185.5" width="2" height="9" rx="1" fill="#5a5a5a" transform="rotate(-30 213.5 190)"/>
-                <!-- Hands -->
-                <rect x="248.5" y="200" width="3" height="75" rx="1.5" fill="#fff" transform-origin="250 267" transform="rotate(-30 250 267)"/>
-                <rect x="249" y="220" width="2" height="90" rx="1" fill="#c9a84c" transform-origin="250 267" transform="rotate(120 250 267)"/>
-                <!-- Seconds hand -->
-                <line x1="250" y1="267" x2="290" y2="230" stroke="#c9a84c" stroke-width="0.8"/>
-                <line x1="250" y1="267" x2="230" y2="295" stroke="#c9a84c" stroke-width="0.8"/>
-                <!-- Center -->
-                <circle cx="250" cy="267" r="4" fill="#c9a84c"/>
-                <circle cx="250" cy="267" r="2" fill="#080808"/>
-                <!-- Logo text -->
-                <text x="250" y="310" text-anchor="middle" fill="#5a5a5a" font-size="8" font-family="serif" letter-spacing="3">LE CERCLE</text>
-                <!-- Subdial -->
-                <circle cx="250" cy="235" r="14" fill="#0a0a0a" stroke="#2a2a2a" stroke-width="0.5"/>
-                <circle cx="250" cy="235" r="1.5" fill="#5a5a5a"/>
-                <!-- Strap bottom -->
-                <rect x="185" y="400" width="130" height="200" rx="18" fill="#161616" stroke="#2a2a2a" stroke-width="1"/>
-                <rect x="200" y="405" width="100" height="185" rx="12" fill="#111"/>
-                <line x1="220" y1="430" x2="280" y2="430" stroke="#2a2a2a" stroke-width="1"/>
-                <line x1="220" y1="450" x2="280" y2="450" stroke="#2a2a2a" stroke-width="1"/>
-                <line x1="220" y1="470" x2="280" y2="470" stroke="#2a2a2a" stroke-width="1"/>
-                <line x1="220" y1="490" x2="280" y2="490" stroke="#2a2a2a" stroke-width="1"/>
-                <line x1="220" y1="510" x2="280" y2="510" stroke="#2a2a2a" stroke-width="1"/>
-                <line x1="220" y1="530" x2="280" y2="530" stroke="#2a2a2a" stroke-width="1"/>
-                <!-- Buckle -->
-                <rect x="225" y="560" width="50" height="28" rx="6" fill="#1a1a1a" stroke="#c9a84c" stroke-width="0.8"/>
-                <line x1="250" y1="560" x2="250" y2="588" stroke="#c9a84c" stroke-width="0.8"/>
-            </svg>
+        <!-- Slideshow photos -->
+        <div class="hero-slides" id="heroSlides">
+            <div class="hero-slide active">
+                <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=1800&q=90&fit=crop&auto=format" alt="Montre de luxe">
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1662384197911-e82189f4dc60?w=1800&q=90&fit=crop&auto=format" alt="Rolex Submariner">
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1663564304546-38addf4a4358?w=1800&q=90&fit=crop&auto=format" alt="Patek Philippe">
+            </div>
+            <div class="hero-slide">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1800&q=90&fit=crop&auto=format" alt="Montre classique">
+            </div>
         </div>
 
+        <!-- Overlays -->
+        <div class="hero-overlay"></div>
+        <div class="hero-noise"></div>
+
+        <!-- Content -->
         <div class="container">
             <div class="hero-content">
-                <div class="hero-eyebrow reveal">
+                <div class="hero-eyebrow">
                     <div class="hero-eyebrow-line"></div>
                     <span class="hero-eyebrow-text">Horlogerie de Prestige · Europe</span>
                 </div>
-                <h1 class="hero-title reveal reveal-delay-1">
-                    L'art du temps<br><em>à sa juste valeur</em>
+                <h1 class="hero-title">
+                    <span class="line">L'art du temps</span>
+                    <span class="line"><em>à sa juste valeur</em></span>
                 </h1>
-                <p class="hero-subtitle reveal reveal-delay-2">
-                    Spécialiste de l'acquisition et de la revente de montres de luxe en Europe. Chaque pièce est expertisée, certifiée et proposée avec exigence.
+                <p class="hero-subtitle">
+                    Spécialiste de l'acquisition et de la revente de montres de luxe en Europe. Chaque pièce expertisée, certifiée, proposée avec exigence.
                 </p>
-                <div class="hero-actions reveal reveal-delay-3">
+                <div class="hero-actions">
                     <a href="#montres" class="btn btn-gold">
                         Découvrir les montres
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </a>
-                    <a href="#expertise" class="btn btn-outline">Notre expertise</a>
+                    <a href="devis.html" class="btn btn-outline">Demander un devis</a>
                 </div>
             </div>
         </div>
 
+        <!-- HUD bas de page -->
+        <div class="hero-hud">
+            <div class="hero-counter">
+                <span class="current" id="slideCurrentNum">01</span>
+                <span style="margin:0 4px;opacity:0.4">/</span>
+                <span>04</span>
+            </div>
+            <div class="hero-progress" id="heroProgress">
+                <div class="hero-prog-bar active" data-index="0"></div>
+                <div class="hero-prog-bar" data-index="1"></div>
+                <div class="hero-prog-bar" data-index="2"></div>
+                <div class="hero-prog-bar" data-index="3"></div>
+            </div>
+            <div class="hero-caption" id="heroCaption">Rolex · Patek Philippe<br>Audemars Piguet</div>
+        </div>
+
+        <!-- Scroll -->
         <a href="#stats" class="hero-scroll">
             <span>Défiler</span>
             <div class="scroll-line"></div>
@@ -1818,6 +1898,65 @@
     </footer>
 
     <script>
+        // ── Hero Slideshow ────────────────────────────────────────────
+        (function() {
+            const SLIDE_DURATION = 6000;
+            const slides    = document.querySelectorAll('.hero-slide');
+            const bars      = document.querySelectorAll('.hero-prog-bar');
+            const numEl     = document.getElementById('slideCurrentNum');
+            const captions  = ['Horlogerie · Prestige', 'Rolex · Submariner', 'Patek Philippe', 'Classique · Intemporel'];
+            const captionEl = document.getElementById('heroCaption');
+            let current = 0;
+            let timer;
+
+            // Set CSS variable for bar animation duration
+            bars.forEach(b => b.style.setProperty('--slide-duration', SLIDE_DURATION + 'ms'));
+
+            function goTo(idx) {
+                // Remove active/done
+                slides[current].classList.remove('active');
+                bars[current].classList.remove('active');
+                bars[current].classList.add('done');
+                // Reset bar for current if going back
+                if (idx <= current) {
+                    bars.forEach((b, i) => {
+                        b.classList.remove('active', 'done');
+                    });
+                }
+                current = (idx + slides.length) % slides.length;
+                slides[current].classList.add('active');
+                bars.forEach((b, i) => {
+                    b.classList.remove('active');
+                    if (i < current) b.classList.add('done');
+                });
+                bars[current].classList.remove('done');
+                // Force reflow to restart animation
+                void bars[current].offsetWidth;
+                bars[current].classList.add('active');
+                numEl.textContent = String(current + 1).padStart(2, '0');
+                if (captionEl) captionEl.textContent = captions[current] || '';
+            }
+
+            function next() { goTo(current + 1); }
+
+            function startTimer() {
+                clearInterval(timer);
+                timer = setInterval(next, SLIDE_DURATION);
+            }
+
+            // Click on bars to jump
+            bars.forEach((b, i) => {
+                b.addEventListener('click', () => { clearInterval(timer); goTo(i); startTimer(); });
+            });
+
+            // Pause on hover
+            document.getElementById('hero').addEventListener('mouseenter', () => clearInterval(timer));
+            document.getElementById('hero').addEventListener('mouseleave', startTimer);
+
+            // Kick off
+            startTimer();
+        })();
+
         // ── Navbar scroll ─────────────────────────────────────────────
         const nav = document.getElementById('nav');
         window.addEventListener('scroll', () => {
